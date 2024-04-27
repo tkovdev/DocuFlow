@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "Intake";
+
+package document.proto;
+
+// The greeting service definition.
+service DocumentProto {
+  // Sends a greeting
+  rpc Ingest (DocumentRequest) returns (DocumentReply);
+}
+
+// The request message containing the user's name.
+message DocumentRequest {
+  bytes binary = 1;
+}
+
+// The response message containing the greetings.
+message DocumentReply {
+  string id = 1;
+}

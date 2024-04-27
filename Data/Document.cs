@@ -1,9 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using Data.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Data;
 
-public class Document
+public class Document : IEntity
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
