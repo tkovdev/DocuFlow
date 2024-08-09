@@ -10,7 +10,7 @@ public class Document : IEntity
     [BsonRepresentation(BsonType.ObjectId)]
     public ObjectId Id { get; set; } = ObjectId.GenerateNewId();
     
-    public string? Location { get; set; }
+    public DocumentFile File { get; set; } = DocumentFile.Empty();
 
     public List<Signature> Signatures { get; set; } = new List<Signature>();
 }

@@ -12,7 +12,9 @@ service DocumentProto {
 
 // The request message containing the user's name.
 message DocumentRequest {
-  bytes binary = 1;
+  string name = 1;
+  string extension = 2;
+  bytes binary = 3;
 }
 
 // The response message containing the greetings.

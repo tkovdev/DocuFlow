@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <UserSecretsId>7d2567af-0149-4d8e-bec6-cbd589168931</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,5 +16,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Data\Data.csproj" />
     </ItemGroup>
-
 </Project>

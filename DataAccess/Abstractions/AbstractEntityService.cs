@@ -16,7 +16,7 @@ namespace DataAccess.Abstractions;
  * For example: BookEntityService : AbstractEntityService&lt;Book&gt;
  * </summary>
  */
-public class AbstractEntityService<TEntity> : IEntityService<TEntity> where TEntity : IEntity
+public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> where TEntity : IEntity
 {
     protected IMongoCollection<TEntity> Collection { get; }
 

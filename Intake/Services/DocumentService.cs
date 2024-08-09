@@ -1,7 +1,10 @@
+using AzureAccess.Interfaces;
 using Data;
 using DataAccess.Abstractions;
 using DataAccess.DAL;
+using DataAccess.Exceptions;
 using DataAccess.Interfaces;
+using DataAccess.Services;
 using Grpc.Core;
 
 namespace Intake.Services;
@@ -10,30 +13,59 @@ public class DocumentService : DocumentProto.DocumentProtoBase
 {
     private readonly ILogger<DocumentService> _logger;
     private readonly IEntityService<Document> _entityService;
-    private readonly IConfiguration _configuration;
+    private readonly IFileService _fileService;
 
-    public DocumentService(ILogger<DocumentService> logger, IMongoDb mongoDb, IConfiguration configuration)
+    public DocumentService( ILogger<DocumentService> logger, 
+                            IEntityService<Document> entityService, 
+                            IFileService fileService
+                          )
     {
         _logger = logger;
-        _entityService = new AbstractEntityService<Document>(mongoDb);
-        _configuration = configuration;
+        _entityService = entityService;
+        _fileService = fileService;
     }
     
     public override async Task<DocumentReply> Ingest(DocumentRequest request, ServerCallContext context)
     {
-        var location = _configuration.GetValue<string>("FileLocation");
-        var c = await _entityService.Create(new Document
+        var file = new DocumentFile()
         {
-            Location = location,
-            Signatures = new List<Signature>()
+            OriginalName = request.Name,
+            Extension = request.Extension,
+            Path = String.Empty,
+            FileName = Guid.NewGuid().ToString()
+        };
+
+        try
+        {
+            var stream = new MemoryStream(request.Binary.ToByteArray());
+            var finalPath = await _fileService.SaveFile(stream, Path.Combine(file.Path, file.FileName));
+            file.Path = finalPath;
+        }
+        catch (Exception e)
+        {
+            throw new DataAccessCriticalException("File not saved! No data has been stored.");
+        }
+
+        try
+        {
+            var c = await _entityService.Create(new Document
             {
-                new Signature(new User("T", "K", "katie", "P"))
-            }
-        });
-        
-        return await Task.FromResult(new DocumentReply()
+                File = file,
+                Signatures = new List<Signature>()
+                {
+                    new Signature(new User("T", "K", "katie", "P"))
+                }
+            });
+
+            return await Task.FromResult(new DocumentReply()
+            {
+                Id = c.Id.ToString()
+            });
+        }
+        catch (Exception e)
         {
-            Id = c.Id.ToString()
-        });
+            await _fileService.DeleteFile(file.FileName);
+            throw new DataAccessCriticalException("Database save failed! No data has been stored.");
+        }
     }
 }
