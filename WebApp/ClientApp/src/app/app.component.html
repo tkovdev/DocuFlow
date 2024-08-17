@@ -1,0 +1,10 @@
+<button (click)="stamper()">Stamp</button>
+<button (click)="eraser()">Erase</button>
+<button (click)="cancel()">Cancel</button>
+<button (click)="submit()">Submit</button>
+<pdf-viewer [src]="'https://localhost:7203/api/download'"
+            [render-text]="true"
+            [original-size]="false"
+            style="width: 215.9mm; height: 279.4mm"
+></pdf-viewer>
+
