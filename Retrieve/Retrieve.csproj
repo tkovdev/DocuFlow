@@ -5,17 +5,25 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <UserSecretsId>f0d3eef0-e48a-422b-854a-df42d378ce8e</UserSecretsId>
+        <RootNamespace>Retrieval</RootNamespace>
+        <UserSecretsId>d963c79e-f501-4080-9d89-941fc49926a7</UserSecretsId>
         <IncludeHttpRuleProtos>true</IncludeHttpRuleProtos>
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="Protos\document.proto" GrpcServices="Server"/>
+        <Protobuf Include="Protos\document.proto">
+          <GrpcServices>Server</GrpcServices>
+          <Access>Public</Access>
+          <ProtoCompile>True</ProtoCompile>
+          <CompileOutputs>True</CompileOutputs>
+          <OutputDir>obj\Debug/net8.0/</OutputDir>
+          <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Grpc.AspNetCore" Version="2.57.0"/>
-        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.62.0" />
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.65.0" />
         <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="8.0.8" />
     </ItemGroup>
 
@@ -28,6 +36,7 @@
     <ItemGroup>
       <ProjectReference Include="..\AzureAccess\AzureAccess.csproj" />
       <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+      <ProjectReference Include="..\Data\Data.csproj" />
     </ItemGroup>
 
 </Project>

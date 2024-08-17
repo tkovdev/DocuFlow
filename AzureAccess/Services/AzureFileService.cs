@@ -31,9 +31,15 @@ public class AzureFileService : IFileService
             (new Uri(blobUri), sharedKeyCredential);
     }
     
-    public async Task<Stream> GetFile(string fileName, string path)
+    public async Task<Stream> GetFile(string fileName)
     {
-        throw new NotImplementedException();
+        var container = _blobServiceClient.GetBlobContainerClient("docuflow");
+        var blob = container.GetBlobClient(fileName);
+
+        var stream = new MemoryStream();
+        var result = await blob.DownloadToAsync(stream);
+        if (result.IsError) throw new Exception("File download from Azure failed!");
+        return stream;
     }
 
     public async Task<string> SaveFile(Stream file, string path)

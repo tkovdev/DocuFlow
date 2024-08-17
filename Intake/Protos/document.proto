@@ -1,13 +1,19 @@
 syntax = "proto3";
 
 option csharp_namespace = "Intake";
+import "google/api/annotations.proto";
 
 package document.proto;
 
 // The greeting service definition.
 service DocumentProto {
   // Sends a greeting
-  rpc Ingest (DocumentRequest) returns (DocumentReply);
+  rpc Ingest (DocumentRequest) returns (DocumentReply){
+    option (google.api.http) = {
+      post: "/v1/ingest",
+      body: "*"
+    };
+  }
 }
 
 // The request message containing the user's name.

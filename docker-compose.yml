@@ -1,0 +1,6 @@
+﻿services:
+  retrieval:
+    image: retrieval
+    build:
+      context: .
+      dockerfile: Retrieval/Dockerfile
