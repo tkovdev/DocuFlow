@@ -5,27 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <RootNamespace>Retrieval</RootNamespace>
-        <UserSecretsId>d963c79e-f501-4080-9d89-941fc49926a7</UserSecretsId>
-        <IncludeHttpRuleProtos>true</IncludeHttpRuleProtos>
+        <UserSecretsId>913b9932-e113-45c6-ac1d-305cd3647f6d</UserSecretsId>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Protobuf Include="Protos\document.proto">
-          <GrpcServices>Server</GrpcServices>
-          <Access>Public</Access>
-          <ProtoCompile>True</ProtoCompile>
-          <CompileOutputs>True</CompileOutputs>
-          <OutputDir>obj\Debug/net8.0/</OutputDir>
-          <Generator>MSBuild:Compile</Generator>
-        </Protobuf>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.57.0"/>
-        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.65.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="8.0.8" />
-    </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\.dockerignore">
@@ -34,9 +15,17 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\AzureAccess\AzureAccess.csproj" />
-      <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
-      <ProjectReference Include="..\Data\Data.csproj" />
+      <ProjectReference Include="..\Data.Access.Abstractions\Data.Access.Abstractions.csproj" />
+      <ProjectReference Include="..\Data.Access\Data.Access.csproj" />
     </ItemGroup>
 
 </Project>

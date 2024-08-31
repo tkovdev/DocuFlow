@@ -1,7 +1,7 @@
 using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using AzureAccess.Interfaces;
+using Data.Access.Abstractions.Interfaces;
 using Microsoft.Extensions.Configuration;
 
 namespace AzureAccess.Services;

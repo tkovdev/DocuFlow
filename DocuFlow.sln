@@ -1,21 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{F3C8AA9D-62CB-4DF2-BD52-1DCF29841386}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Models", "Data.Models\Data.Models.csproj", "{F3C8AA9D-62CB-4DF2-BD52-1DCF29841386}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intake", "Intake\Intake.csproj", "{8F20C45A-0FB1-4D88-9D6F-3AC2A0C049CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{750F7917-E9B4-4C39-A724-691F72EF785D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Access", "Data.Access\Data.Access.csproj", "{750F7917-E9B4-4C39-A724-691F72EF785D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAccess", "AzureAccess\AzureAccess.csproj", "{0EFE63A6-FC3E-4A99-B8DD-97F4F685BC9C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{5A84029E-FFD3-46A9-90E2-5F36E9C848CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retrieve", "Retrieve\Retrieve.csproj", "{43033D43-7641-480D-90D1-B848C3B9C2C6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0708B687-8897-48F5-9771-0F3B292B3005}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{0637284E-D660-49D8-AC6E-BD67BD4BD1E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retrieve", "Retrieve\Retrieve.csproj", "{5E47179C-F021-47EB-9FDD-EFDF9BD9BD5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Access.Abstractions", "Data.Access.Abstractions\Data.Access.Abstractions.csproj", "{E47F1465-8B2F-46F7-9B19-9E8E1A3781BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,9 +47,19 @@ Global
 		{5A84029E-FFD3-46A9-90E2-5F36E9C848CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A84029E-FFD3-46A9-90E2-5F36E9C848CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A84029E-FFD3-46A9-90E2-5F36E9C848CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43033D43-7641-480D-90D1-B848C3B9C2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43033D43-7641-480D-90D1-B848C3B9C2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43033D43-7641-480D-90D1-B848C3B9C2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43033D43-7641-480D-90D1-B848C3B9C2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E47179C-F021-47EB-9FDD-EFDF9BD9BD5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E47179C-F021-47EB-9FDD-EFDF9BD9BD5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E47179C-F021-47EB-9FDD-EFDF9BD9BD5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E47179C-F021-47EB-9FDD-EFDF9BD9BD5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E47F1465-8B2F-46F7-9B19-9E8E1A3781BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E47F1465-8B2F-46F7-9B19-9E8E1A3781BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E47F1465-8B2F-46F7-9B19-9E8E1A3781BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E47F1465-8B2F-46F7-9B19-9E8E1A3781BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F3C8AA9D-62CB-4DF2-BD52-1DCF29841386} = {0637284E-D660-49D8-AC6E-BD67BD4BD1E8}
+		{750F7917-E9B4-4C39-A724-691F72EF785D} = {0637284E-D660-49D8-AC6E-BD67BD4BD1E8}
+		{0EFE63A6-FC3E-4A99-B8DD-97F4F685BC9C} = {0637284E-D660-49D8-AC6E-BD67BD4BD1E8}
+		{E47F1465-8B2F-46F7-9B19-9E8E1A3781BC} = {0637284E-D660-49D8-AC6E-BD67BD4BD1E8}
 	EndGlobalSection
 EndGlobal

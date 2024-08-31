@@ -1,12 +1,19 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace DataAccess.Interfaces;
+namespace Data.Access.Abstractions.Interfaces;
 
 public interface IEntityService<TEntity>
 {
 
     public IMongoCollection<TEntity> GetCollection();
+    
+    /**
+    * <typeparam name="TEntity">An IEntity that represents data in the MongoDb. This should be a concrete class.</typeparam>
+    * <summary>Get all entities from the MongoDb Collection.</summary>
+    * <returns>Async token containing an IList of TEntity objects.</returns>
+    */
+    public Task<IList<TEntity>> Get();
     
     /**
      * <param name="id">unique identifier of the entity in the collection</param>

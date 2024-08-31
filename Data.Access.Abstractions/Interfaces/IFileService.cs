@@ -1,4 +1,4 @@
-namespace AzureAccess.Interfaces;
+namespace Data.Access.Abstractions.Interfaces;
 
 public interface IFileService
 {

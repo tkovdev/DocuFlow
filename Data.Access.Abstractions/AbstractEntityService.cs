@@ -1,11 +1,9 @@
-﻿using Data.Interfaces;
+﻿using Data.Access.Abstractions.Exceptions;
+using Data.Access.Abstractions.Interfaces;
 using MongoDB.Driver;
-using DataAccess.DAL;
-using DataAccess.Exceptions;
-using DataAccess.Interfaces;
 using MongoDB.Bson;
 
-namespace DataAccess.Abstractions;
+namespace Data.Access.Abstractions;
 
 /**
  * <typeparam name="TEntity">An IEntity that represents data in the MongoDb. This should be a concrete class.</typeparam>
@@ -39,6 +37,28 @@ public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> w
      * <exception cref="DataAccessWarningException">Operation failed due to a known underlying circumstance as outlined in the message.</exception>
      * <exception cref="DataAccessCriticalException">Operation failed due to an unknown circumstance.</exception>
      */
+    public async Task<IList<TEntity>> Get()
+    {
+        var result = await Collection.FindAsync<TEntity>(x => true, default, default);
+        if (result is not null)
+        {
+            try
+            {
+                return await result.ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw MongoRmExceptionFactory.DataAccessWarningException($"Could not return any {typeof(TEntity).Name}");
+            }
+        }
+        throw MongoRmExceptionFactory.DataAccessWarningException($"Could not find any {typeof(TEntity).Name}");
+    }
+    
+    /**
+     * <inheritdoc/>
+     * <exception cref="DataAccessWarningException">Operation failed due to a known underlying circumstance as outlined in the message.</exception>
+     * <exception cref="DataAccessCriticalException">Operation failed due to an unknown circumstance.</exception>
+     */
     public async Task<TEntity> Get(ObjectId id)
     {
         var result = await Collection.FindAsync<TEntity>(x => id == x.Id, default, default);
@@ -51,10 +71,10 @@ public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> w
             }
             catch (Exception)
             {
-                throw new DataAccessWarningException($"Could not find {typeof(TEntity).Name} with Id {id}");
+                throw MongoRmExceptionFactory.DataAccessWarningException($"Could not find {typeof(TEntity).Name} with Id {id}");
             }
         }
-        throw new DataAccessWarningException($"Could not find {typeof(TEntity).Name} with Id {id}");
+        throw MongoRmExceptionFactory.DataAccessWarningException($"Could not find {typeof(TEntity).Name} with Id {id}");
     }
     
     /**
@@ -70,7 +90,7 @@ public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> w
         }
         catch (Exception)
         {
-            throw new DataAccessCriticalException($"{typeof(TEntity).Name} creation failed!");
+            throw MongoRmExceptionFactory.DataAccessCriticalException($"{typeof(TEntity).Name} creation failed!");
         }
         var result = await Collection.FindAsync(x => entity.Id == x.Id);
         if (result is not null)
@@ -81,10 +101,10 @@ public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> w
             }
             catch (Exception)
             {
-                throw new DataAccessWarningException($"{typeof(TEntity).Name} save successful but does not appear in the database!");
+                throw MongoRmExceptionFactory.DataAccessWarningException($"{typeof(TEntity).Name} save successful but does not appear in the database!");
             }
         } 
-        throw new DataAccessWarningException($"{typeof(TEntity).Name} save successful but does not appear in the database!");
+        throw MongoRmExceptionFactory.DataAccessWarningException($"{typeof(TEntity).Name} save successful but does not appear in the database!");
     }
 
     /**
@@ -100,7 +120,7 @@ public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> w
         }
         catch (Exception)
         {
-            throw new DataAccessWarningException($"{typeof(TEntity).Name} update not successful!");
+            throw MongoRmExceptionFactory.DataAccessWarningException($"{typeof(TEntity).Name} update not successful!");
         }
         var result = await Collection.FindAsync(x => entity.Id == x.Id);
         if (result is not null)
@@ -111,10 +131,10 @@ public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> w
             }
             catch (Exception)
             {
-                throw new DataAccessWarningException($"{typeof(TEntity).Name} update successful but does not appear in the database!");
+                throw MongoRmExceptionFactory.DataAccessWarningException($"{typeof(TEntity).Name} update successful but does not appear in the database!");
             }
         }
-        throw new DataAccessCriticalException($"{typeof(TEntity).Name} update successful but does not appear in the database!");
+        throw MongoRmExceptionFactory.DataAccessCriticalException($"{typeof(TEntity).Name} update successful but does not appear in the database!");
     }
 
     /**
@@ -125,14 +145,14 @@ public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> w
     public async Task<TEntity> Delete(ObjectId id)
     {
         var result = await Collection.FindAsync(x => id == x.Id);
-        if (result is null) throw new DataAccessWarningException($"{typeof(TEntity).Name} with id {id} not found!");
+        if (result is null) throw MongoRmExceptionFactory.DataAccessWarningException($"{typeof(TEntity).Name} with id {id} not found!");
         try
         {
             await Collection.DeleteOneAsync(x => id == x.Id);
         }
         catch (Exception)
         {
-            throw new DataAccessWarningException($"{typeof(TEntity).Name} delete not successful!");
+            throw MongoRmExceptionFactory.DataAccessWarningException($"{typeof(TEntity).Name} delete not successful!");
         }
         try
         {
@@ -140,7 +160,7 @@ public abstract class AbstractEntityService<TEntity> : IEntityService<TEntity> w
         }
         catch (Exception)
         {
-            throw new DataAccessWarningException($"{typeof(TEntity).Name} delete successful but does not appear in the database!");
+            throw MongoRmExceptionFactory.DataAccessWarningException($"{typeof(TEntity).Name} delete successful but does not appear in the database!");
         }
     }
 }

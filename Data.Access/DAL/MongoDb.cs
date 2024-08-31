@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Data.Access.Abstractions.Interfaces;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace DataAccess.DAL;
+namespace Data.Access.DAL;
 
 
 /**

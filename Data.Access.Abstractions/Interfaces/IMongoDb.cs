@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace DataAccess.DAL;
+namespace Data.Access.Abstractions.Interfaces;
 
 /**
  * <summary>

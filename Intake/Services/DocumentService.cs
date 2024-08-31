@@ -1,10 +1,6 @@
-using AzureAccess.Interfaces;
-using Data;
-using DataAccess.Abstractions;
-using DataAccess.DAL;
-using DataAccess.Exceptions;
-using DataAccess.Interfaces;
-using DataAccess.Services;
+using Data.Access.Abstractions.Exceptions;
+using Data.Access.Abstractions.Interfaces;
+using Data.Models;
 using Grpc.Core;
 
 namespace Intake.Services;
@@ -43,7 +39,7 @@ public class DocumentService : DocumentProto.DocumentProtoBase
         }
         catch (Exception e)
         {
-            throw new DataAccessCriticalException("File not saved! No data has been stored.");
+            throw MongoRmExceptionFactory.DataAccessCriticalException("File not saved! No data has been stored.");
         }
 
         try
@@ -65,7 +61,7 @@ public class DocumentService : DocumentProto.DocumentProtoBase
         catch (Exception e)
         {
             await _fileService.DeleteFile(file.FileName);
-            throw new DataAccessCriticalException("Database save failed! No data has been stored.");
+            throw MongoRmExceptionFactory.DataAccessCriticalException("Database save failed! No data has been stored.");
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Data;
+namespace Data.Models;
 
 public class User
 {

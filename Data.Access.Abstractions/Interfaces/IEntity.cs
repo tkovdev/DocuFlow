@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Data.Interfaces;
+namespace Data.Access.Abstractions.Interfaces;
 
 /**
  * <summary>

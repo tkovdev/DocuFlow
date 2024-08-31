@@ -1,8 +1,8 @@
-using Data;
-using DataAccess.Abstractions;
-using DataAccess.DAL;
+using Data.Models;
+using Data.Access.Abstractions;
+using Data.Access.Abstractions.Interfaces;
 
-namespace DataAccess.Services;
+namespace Data.Access.Services;
 
 public class DocumentEntityService : AbstractEntityService<Document>
 {

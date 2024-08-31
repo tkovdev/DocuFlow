@@ -1,9 +1,8 @@
-using AzureAccess.Interfaces;
 using AzureAccess.Services;
-using Data;
-using DataAccess.DAL;
-using DataAccess.Interfaces;
-using DataAccess.Services;
+using Data.Access.Abstractions.Interfaces;
+using Data.Access.DAL;
+using Data.Access.Services;
+using Data.Models;
 using Intake.Services;
 
 var builder = WebApplication.CreateBuilder(args);

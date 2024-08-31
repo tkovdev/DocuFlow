@@ -27,7 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AzureAccess\AzureAccess.csproj" />
-      <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+      <ProjectReference Include="..\Data.Access\Data.Access.csproj" />
     </ItemGroup>
 
 </Project>
