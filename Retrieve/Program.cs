@@ -15,7 +15,21 @@ builder.Services.AddScoped<IFileService, AzureFileService>();
 
 builder.Services.AddControllers();
 
+//Setup App CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowWebApp",
+        policy =>
+            policy.AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins(builder.Configuration.GetSection("CORS:allowed").Get<string[]>())
+    );
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowWebApp");
 
 // Configure the HTTP request pipeline.
 

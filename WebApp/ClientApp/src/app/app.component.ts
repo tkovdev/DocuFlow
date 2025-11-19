@@ -1,12 +1,14 @@
 import {AfterContentChecked, AfterViewInit, Component, ViewChild} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
+import {PDFSource, PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
 import {appConfig} from "./app.config";
 import {PdfService} from "./services/pdf.service";
+import {SafeResourceUrl} from "@angular/platform-browser";
+import {NgIf} from "@angular/common";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PdfViewerModule],
+  imports: [RouterOutlet, PdfViewerModule, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -145,8 +147,11 @@ export class AppComponent implements AfterViewInit{
   }
   ngAfterViewInit(): void {
   }
-
-  constructor(private pdfService: PdfService) {
+  url?: string
+  constructor(public pdfService: PdfService) {
+    this.pdfService.download().subscribe((res) => {
+      this.url = URL.createObjectURL(res);
+    })
   }
 
   submit() {

@@ -1,6 +1,6 @@
 import {Injectable, SecurityContext} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {catchError, map, Observable, throwError} from "rxjs";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Injectable({
@@ -26,7 +26,7 @@ export class PdfService {
 
   download(): Observable<Blob> {
     //need to get the content type directly from the api
-    return this.http.get<any>('https://localhost:7148/v1/retrieve/66c066d2276c3a28c846fbec').pipe(map((res) => {
+    return this.http.get<any>('https://localhost:7298/api/files/66c066d2276c3a28c846fbec').pipe(map((res) => {
       return this.b64toBlob(res.data, res.contentType);
     }));
   }
